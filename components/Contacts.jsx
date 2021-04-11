@@ -234,6 +234,7 @@ export default function Contacts() {
 											<TableCell>
 												<IconButton
 													onClick={() => {
+														console.log('contact', row)
 														if (
 															userId != row.userId &&
 															row.userId != "USSD-ORIGIN"
@@ -256,6 +257,7 @@ export default function Contacts() {
 											<TableCell>
 												<IconButton
 													onClick={() => {
+														console.log("contact", row);
 														if (
 															userId != row.userId &&
 															row.userId != "USSD-ORIGIN"
