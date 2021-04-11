@@ -234,7 +234,10 @@ export default function Contacts() {
 											<TableCell>
 												<IconButton
 													onClick={() => {
-														if (userId != row.userId) {
+														if (
+															userId != row.userId &&
+															row.userId != "USSD-ORIGIN"
+														) {
 															setErrorMsg(
 																"Unauthorized action. This contact doesn't belong to you"
 															);
@@ -253,7 +256,10 @@ export default function Contacts() {
 											<TableCell>
 												<IconButton
 													onClick={() => {
-														if (userId != row.userId) {
+														if (
+															userId != row.userId &&
+															row.userId != "USSD-ORIGIN"
+														) {
 															setErrorMsg(
 																"Unauthorized action. This contact doesn't belong to you"
 															);
