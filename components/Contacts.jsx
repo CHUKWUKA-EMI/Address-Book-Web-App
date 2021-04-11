@@ -38,6 +38,7 @@ export default function Contacts() {
 	const [loading, setLoading] = React.useState(false);
 	const [successMsg, setSuccessMsg] = React.useState("");
 	const [errorMsg, setErrorMsg] = React.useState("");
+	const [userId, setUserId] = React.useState(null);
 
 	React.useEffect(() => {
 		const addressRef = firebase.database().ref("Address-Book");
@@ -51,11 +52,20 @@ export default function Contacts() {
 		});
 	}, []);
 
+	React.useEffect(() => {
+		const id = localStorage.getItem("userId");
+		if (id == null || id == "" || id == undefined) {
+			router.push("/login");
+		}
+
+		setUserId(id);
+	}, []);
+
 	const clearMessages = () => {
 		const timer = setTimeout(() => {
 			setErrorMsg("");
 			setSuccessMsg("");
-		}, 1000 * 3);
+		}, 1000 * 5);
 
 		return () => clearTimeout(timer);
 	};
@@ -224,6 +234,13 @@ export default function Contacts() {
 											<TableCell>
 												<IconButton
 													onClick={() => {
+														if (userId != row.userId) {
+															setErrorMsg(
+																"Unauthorized action. This contact doesn't belong to you"
+															);
+															clearMessages();
+															return;
+														}
 														setContactId(row.id);
 														setFullName(row.name);
 														setPhone(row.phoneNumber);
@@ -234,7 +251,17 @@ export default function Contacts() {
 												</IconButton>
 											</TableCell>
 											<TableCell>
-												<IconButton onClick={() => deleteContact(row.id)}>
+												<IconButton
+													onClick={() => {
+														if (userId != row.userId) {
+															setErrorMsg(
+																"Unauthorized action. This contact doesn't belong to you"
+															);
+															clearMessages();
+															return;
+														}
+														deleteContact(row.id);
+													}}>
 													<Delete style={{ color: "red" }} />
 												</IconButton>
 											</TableCell>

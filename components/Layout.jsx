@@ -14,7 +14,8 @@ import MenuIcon from "@material-ui/icons/Menu";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
-import { Contacts, AddBox } from "@material-ui/icons";
+import { Contacts, AddBox, Person } from "@material-ui/icons";
+import firebase from "../utils/firebase";
 
 const drawerWidth = 15;
 
@@ -82,6 +83,12 @@ function Layout(props) {
 	const classes = useStyles();
 	const theme = useTheme();
 	const [mobileOpen, setMobileOpen] = React.useState(false);
+	const [userId, setUserId] = React.useState(null);
+
+	React.useEffect(() => {
+		const id = localStorage.getItem("userId");
+		setUserId(id);
+	}, []);
 
 	const handleDrawerToggle = () => {
 		setMobileOpen(!mobileOpen);
@@ -97,6 +104,11 @@ function Layout(props) {
 			name: "Add Contact",
 			href: "/add",
 			icon: <AddBox style={{ color: "#32506D" }} />,
+		},
+		{
+			name: userId != null ? "me" : "Sign Up",
+			href: userId != null ? "" : "/signup",
+			icon: <Person style={{ color: "#32506D" }} />,
 		},
 	];
 

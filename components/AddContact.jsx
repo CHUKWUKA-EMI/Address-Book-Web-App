@@ -48,6 +48,16 @@ export default function AddContact() {
 	const [email, setEmail] = React.useState("");
 	const [successMsg, setSuccessMsg] = React.useState("");
 	const [errorMsg, setErrorMsg] = React.useState("");
+	const [userId, setUserId] = React.useState(null);
+
+	React.useEffect(() => {
+		const id = localStorage.getItem("userId");
+		if (id == null || id == "" || id == undefined) {
+			router.push("/login");
+		}
+
+		setUserId(id);
+	}, []);
 
 	//function for clearing error and success messages
 	const clearMessages = () => {
@@ -65,6 +75,7 @@ export default function AddContact() {
 			name: fullName,
 			phoneNumber: phone,
 			emailAddress: email,
+			userId: userId,
 		};
 		//validate inputs
 		if (
