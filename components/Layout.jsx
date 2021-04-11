@@ -89,9 +89,6 @@ function Layout(props) {
 
 	React.useEffect(() => {
 		const id = localStorage.getItem("userId");
-		if (id == null || id == "" || id == undefined) {
-			router.push("/login");
-		}
 		setUserId(id);
 	}, []);
 
