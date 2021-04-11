@@ -16,6 +16,7 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import { Contacts, AddBox, Person } from "@material-ui/icons";
 import firebase from "../utils/firebase";
+import { useRouter } from "next/router";
 
 const drawerWidth = 15;
 
@@ -81,12 +82,16 @@ const useStyles = makeStyles((theme) => ({
 function Layout(props) {
 	const { window } = props;
 	const classes = useStyles();
+	const router = useRouter();
 	const theme = useTheme();
 	const [mobileOpen, setMobileOpen] = React.useState(false);
 	const [userId, setUserId] = React.useState(null);
 
 	React.useEffect(() => {
 		const id = localStorage.getItem("userId");
+		if (id == null || id == "" || id == undefined) {
+			router.push("/login");
+		}
 		setUserId(id);
 	}, []);
 
