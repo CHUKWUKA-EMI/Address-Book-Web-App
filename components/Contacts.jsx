@@ -14,6 +14,7 @@ import { Edit, Delete } from "@material-ui/icons";
 import IconButton from "@material-ui/core/IconButton";
 import firebase from "../utils/firebase";
 import EditContact from "./EditContact";
+import { useRouter } from "next/router";
 
 const useStyles = makeStyles({
 	root: {
@@ -27,6 +28,7 @@ const useStyles = makeStyles({
 
 export default function Contacts() {
 	const classes = useStyles();
+	const router = useRouter();
 	const [page, setPage] = React.useState(0);
 	const [rowsPerPage, setRowsPerPage] = React.useState(10);
 	const [contacts, setContacts] = React.useState([]);
@@ -234,7 +236,6 @@ export default function Contacts() {
 											<TableCell>
 												<IconButton
 													onClick={() => {
-														console.log('contact', row)
 														if (
 															userId != row.userId &&
 															row.userId != "USSD-ORIGIN"
@@ -257,7 +258,6 @@ export default function Contacts() {
 											<TableCell>
 												<IconButton
 													onClick={() => {
-														console.log("contact", row);
 														if (
 															userId != row.userId &&
 															row.userId != "USSD-ORIGIN"
